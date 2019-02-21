@@ -1,0 +1,17 @@
+.Pad{
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+    flex-wrap: wrap;}
+
+.Button{
+    height: 5rem;
+    width: 5rem;
+    margin: 1rem;
+    border-radius: 2px;
+}
+.Button:disabled{
+    cursor: not-allowed;
+}
