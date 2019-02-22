@@ -17,8 +17,7 @@ class PinPad extends Component {
     const {currentPin, correctPin, failedAttempts} = this.state;
 
     if(currentPin.length > 3){
-      // eslint-disable-next-line eqeqeq
-      if(currentPin == correctPin){
+      if(JSON.stringify(currentPin) === JSON.stringify(correctPin)){
         this.setState({message: 'OK', currentPin:[]})
       } else if (failedAttempts === 2) {
         this.setState({message: 'LOCKED', failedAttempts: 0, currentPin:[]})
