@@ -2,27 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Display.css";
 
-const Display = ({pin, message}) => {
+const Display = ({ pin, message }) => {
 
-  const renderContent = ()=>{
-    if(!message){
-      return pin.map((nr, i) => {
-        if (i + 1 === pin.length) return nr;
-        return "*";
-      })
-    }
-    return message;
-  }
+  const renderContent = () =>
+    message ? message : pin.map((nr, i) => (i + 1 === pin.length ? nr : "*"));
 
-  return (
-    <div className="Display">
-      {renderContent()}
-    </div>
-  );
-}
+  return <div className="Display">{renderContent()}</div>;
+};
 
 Display.propTypes = {
-  pin: PropTypes.number
+  pin: PropTypes.array
 };
 
 export default Display;

@@ -1,36 +1,41 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import "./PinPad.css";
 
 import Display from "../../components/Display/Display";
 import Pad from "../../components/Pad/Pad";
 
-export default class PinPad extends Component {
+class PinPad extends Component {
   state = {
     correctPin:[1,2,3,4],
     currentPin: [],
     failedAttempts:0,
     message: null
+    
   };
 
-  onClickButton = async (btn)=>{
-    await this.setState({
-      currentPin: [...this.state.currentPin, btn], message:null
-    })
-      if(this.state.currentPin.length > 3){
-        if(JSON.stringify(this.state.correctPin) === JSON.stringify(this.state.currentPin)){
-          this.setState({message: 'OK', currentPin:[]})
-        }else if(this.state.failedAttempts === 2) {
-          this.setState({message: 'LOCKED', failedAttempts: 0, currentPin:[]})
-          setTimeout(()=>{
-            this.setState({message: null})
-          }, 30000)
-        }else{
-          this.setState({message: 'ERROR', failedAttempts: this.state.failedAttempts + 1, currentPin:[]})
-        }
+  handleInputChange = () => {
+    const {currentPin, correctPin, failedAttempts} = this.state;
+
+    if(currentPin.length > 3){
+      // eslint-disable-next-line eqeqeq
+      if(currentPin == correctPin){
+        this.setState({message: 'OK', currentPin:[]})
+      } else if (failedAttempts === 2) {
+        this.setState({message: 'LOCKED', failedAttempts: 0, currentPin:[]})
+        setTimeout(()=>{
+          this.setState({message: null})
+        }, 30000) //30000 ms = 30s
+      } else {
+        this.setState({message: 'ERROR', failedAttempts: failedAttempts + 1, currentPin:[]})
       }
+    }
   }
 
+  onClickButton = btn =>{
+    this.setState({currentPin: [...this.state.currentPin, btn], message:null}, () => {
+     this.handleInputChange()
+    })
+  }
 
   render() {
     const {currentPin, message} = this.state;
@@ -42,3 +47,5 @@ export default class PinPad extends Component {
     );
   }
 }
+
+export default PinPad;

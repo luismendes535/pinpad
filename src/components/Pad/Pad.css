@@ -1,17 +1,24 @@
 .Pad{
     display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    margin: auto;
     justify-content: center;
-    flex-wrap: wrap;}
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+}
 
 .Button{
     height: 5rem;
     width: 5rem;
     margin: 1rem;
     border-radius: 2px;
+    cursor: pointer;
+    background-color: rgb(209, 200, 200);
+    font-size: 20px;
+    font-weight: 700;
 }
 .Button:disabled{
     cursor: not-allowed;
+}
+.Button:focus{
+    outline: 0;
 }
