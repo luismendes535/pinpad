@@ -4,12 +4,19 @@ import "./PinPad.css";
 import Display from "../../components/Display/Display";
 import Pad from "../../components/Pad/Pad";
 
-class PinPad extends Component {
-  state = {
+interface PinPadState {
+  correctPin: string,
+  currentPin: string,
+  failedAttempts: number,
+  message?: string | null
+}
+
+class PinPad extends Component<{}, PinPadState> {
+  state : PinPadState = {
     correctPin:'',
     currentPin: '',
     failedAttempts:0,
-    message: null,
+    message: null
   };
 
   componentDidMount(){
@@ -28,17 +35,17 @@ class PinPad extends Component {
       if(currentPin === correctPin){
         this.setState({message: 'OK', currentPin:'', failedAttempts:0})
       } else if (failedAttempts === 2) {
-        this.setState({message: 'LOCKED', failedAttempts: 0, currentPin:''})
+        this.setState({message: 'LOCKED', currentPin:'', failedAttempts: 0})
         setTimeout(()=>{
           this.setState({message: null})
         }, 30000) //30000 ms = 30s
       } else {
-        this.setState({message: 'ERROR', failedAttempts: failedAttempts + 1, currentPin:''})
+        this.setState({message: 'ERROR', currentPin:'', failedAttempts: failedAttempts + 1})
       }
     }
   }
   
-  onClickButton = (btn: String) =>{
+  onClickButton = (btn: String) => {
     const {currentPin} = this.state;
     if( typeof btn === 'number' && currentPin.length <4){
       this.setState({currentPin: `${currentPin}${btn}`, message:null})

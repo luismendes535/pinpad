@@ -4,7 +4,7 @@ import "./Display.css";
 
 interface DisplayProps {
   pin: string,
-  message: string | null
+  message?: string | null
 }
 
 const Display = ({ pin, message } : DisplayProps) => {
